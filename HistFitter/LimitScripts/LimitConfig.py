@@ -272,7 +272,7 @@ fakeSample.addSystematic(sysObj.AR_ELRE)
 fakeSample.addSystematic(sysObj.AR_MURE)
 
 mc_systematics = [sysObj.AR_EESZ, sysObj.AR_EER, sysObj.AR_EESLOW, sysObj.AR_EESMAT, sysObj.AR_EESPS,
-                  sysObj.AR_JES, sysObj.AR_SCALEST, sysObj.AR_XS, sysObj.AR_BJET, sysObj.AR_BKGMETHOD, sysObj.AR_LUMI]
+                  sysObj.AR_JES, sysObj.AR_SCALEST, sysObj.AR_XS, sysObj.AR_BJET, sysObj.AR_BKGMETHOD]
 
 # Longer list for copy/paste
 #mc_systematics = [sysObj.AR_EESZ, sysObj.AR_EER, sysObj.AR_EESLOW, sysObj.AR_EESMAT, sysObj.AR_EESPS,
