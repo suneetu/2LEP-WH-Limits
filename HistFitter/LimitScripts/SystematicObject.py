@@ -51,10 +51,10 @@ class SystematicObject:
                                  "weight",
                                  "overallSys")
 
+        # THIS IS NOT USED
         flat_lumi_sys = 0.028
         flat_lumi_sys_high = 1 + flat_lumi_sys
         flat_lumi_sys_low = 1 - flat_lumi_sys
-
         self.AR_LUMI = Systematic("AR_LUMI",
                                   configMgr.weights,
                                   flat_lumi_sys_high,

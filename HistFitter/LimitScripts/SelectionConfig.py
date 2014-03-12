@@ -17,7 +17,7 @@ def selectionConfig(mgr):
     mgr.cutsDict["mmSR1jet"]   = "((!isOS || L2qFlipWeight!=1.0) && isMUMU && "+ OneJet         +" && "+ LeptonPtAsymm +" && "+ deltaEta +" && mlj<90000. && Ht>200000. && mtmax>100000.)" 
     mgr.cutsDict["mmSR23jets"] = "((!isOS || L2qFlipWeight!=1.0) && isMUMU && "+ TwoORThreeJets +" && "+ LeptonPtSymm  +" && "+ deltaEta +" && mljj<120000. && Ht>220000.)"
 
-    # EM WITH MTWW
+    # EM WITH MTWW CUT
     mgr.cutsDict["emSR1jet"]   = "((!isOS || L2qFlipWeight!=1.0) && isEMU  && "+ OneJet         +" && "+ LeptonPtSymm +" && "+ deltaEta +" && mlj<90000. && mtmax>110000. && mtllmet>120000. )" 
     mgr.cutsDict["emSR23jets"] = "((!isOS || L2qFlipWeight!=1.0) && isEMU  && "+ TwoORThreeJets +" && "+ LeptonPtSymm +" && "+ deltaEta +" && mljj<120000. && mtllmet>110000. )"
 
