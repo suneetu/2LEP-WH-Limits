@@ -1,0 +1,175 @@
+% Shorthand SUSY 
+
+\newcommand{\gaugino}[2]{\ensuremath{\tilde\chi_{#1}^{#2}}}
+\newcommand{\neutralino}[1]{\gaugino{#1}{0}}
+\newcommand{\chargino}[1]{\gaugino{#1}{\pm}}
+\newcommand{\Cone}{\chargino{1}}
+\newcommand{\None}{\neutralino{1}}
+\newcommand{\Ntwo}{\neutralino{2}}
+\newcommand{\ConeCone}{\gaugino{1}{+}\gaugino{1}{-}}
+\newcommand{\ConeNtwo}{\Cone\Ntwo}
+\newcommand{\mNone}{\ensuremath{m_{\smash{\neutralino{1}}}}}
+\newcommand{\mNtwo}{\ensuremath{m_{\smash{\neutralino{2}}}}}
+\newcommand{\mCone}{\ensuremath{m_{\smash{\chargino{1}}}}}
+\newcommand{\mslepton}{\ensuremath{m_{\smash{\slepton}}}}
+\newcommand{\msneutrino}{\ensuremath{m_{\smash{\sneutrino}}}}
+\newcommand{\sneutrino}{\ensuremath{\tilde\nu}}
+\newcommand{\selectron}{\ensuremath{\tilde{e}}}
+\newcommand{\smuon}{\ensuremath{\tilde{\mu}}}
+
+
+%%%%%% Signal/ Control regions
+\newcommand{\SRa}{SR$_{\mathrm{1~jet}}$} 
+\newcommand{\SRb}{SR$_{\mathrm{2,3~jet}}$} 
+\newcommand{\SRMMa}{SR$^{\mu\mu}_{\mathrm{1~jet}}$} 
+\newcommand{\SRMMb}{SR$^{\mu\mu}_{\mathrm{2,3~jet}}$} 
+\newcommand{\SREEa}{SR$^{ee}_{\mathrm{1~jet}}$} 
+\newcommand{\SREEb}{SR$^{ee}_{\mathrm{2,3~jet}}$} 
+\newcommand{\SREMa}{SR$^{e\mu}_{\mathrm{1~jet}}$} 
+\newcommand{\SREMb}{SR$^{e\mu}_{\mathrm{2,3~jet}}$} 
+
+
+% Shorthand for \phantom to use in tables
+\newcommand{\Zn}{$Z_{n}$}
+\newcommand{\CLs}{CL$_\mathrm{s}$}
+\newcommand{\pho}{\phantom{0}}
+\newcommand{\bslash}{\ensuremath{\backslash}}
+\newcommand{\BibTeX}{{\sc Bib\TeX}}
+\newcommand{\Nl}{\mbox{$N_{\rm{loose}}$}}
+\newcommand{\Nt}{\mbox{$N_{\rm{tight}}$}}
+\newcommand{\Ns}{\mbox{$N^{\rm{SIG}}$}}
+\newcommand{\Nf}{\mbox{$N^{\rm{FAKE}}$}}
+\newcommand{\epss}{\mbox{$\varepsilon^{\rm{SIG}}$}}
+\newcommand{\epsf}{\mbox{$\varepsilon^{\rm{FAKE}}$}}
+\newcommand{\zmumu}{\mbox{$\rm{Z}^0 \rightarrow \mu \mu$}~}
+\newcommand{\zee}{\mbox{$Z^0 \rightarrow e e$}~}
+\newcommand{\ZZero}{\mbox{$Z^0$}~}
+\newcommand{\WWSSjj}{\mbox{$W^+W^+jj$}~}
+\newcommand{\ljets}{\ensuremath{\ell{}+\text{jets}}}
+\newcommand{\ejets}{\ensuremath{e+\text{jets}}}
+\newcommand{\mujets}{\ensuremath{\mu{}+\text{jets}}}
+\newcommand{\lumi}{\ensuremath{20.3~\ifb{}}}
+\def\etconetwenty{\ensuremath{E_{T}^{0.2}}}
+\def\etconethirty{\ensuremath{E_{T}^{0.3}}}
+\def\ptconethirty{\ensuremath{p_{T}^{0.3}}}
+
+%hypenated typewriter fonts 
+% (see 
+% http://tex.stackexchange.com/questions/44361/how-to-automatically-hyphenate-within-texttt )
+\newcommand\hyptexttt[1]{\texttt{\hyphenchar\font=45\relax #1}}
+
+% % Sub/superscript roman not italic (EE)
+\def\MEX{\ensuremath{E_{\mathrm{x}}^{\mathrm{miss}}}}
+\def\mex{\ensuremath{E_{\mathrm{x}}^{\mathrm{miss}}}}
+\def\MEY{\ensuremath{E_{\mathrm{y}}^{\mathrm{miss}}}}
+\def\mey{\ensuremath{E_{\mathrm{y}}^{\mathrm{miss}}}}
+\def\MEXY{\ensuremath{E_{\mathrm{x,y}}^{\mathrm{miss}}}}
+\def\mexy{\ensuremath{E_{\mathrm{x,y}}^{\mathrm{miss}}}}
+\def\MEXYTRUTH{\ensuremath{E_{\mathrm{x,y Truth}}^{\mathrm{miss}}}}
+\def\mexytruth{\ensuremath{E_{\mathrm{x,y Truth}}^{\mathrm{miss}}}}
+\def\METTRUTH{\ensuremath{E_{\mathrm{T Truth}}^{\mathrm{miss}}}}
+\def\mettruth{\ensuremath{E_{\mathrm{T Truth}}^{\mathrm{miss}}}}
+
+% generators and formatting
+\newcommand{\formatGenerator}[1]{\textsc{#1}}
+\newcommand{\herwig}{\formatGenerator{herwig}}
+\newcommand{\powheg}{\formatGenerator{powheg}}
+\newcommand{\pythia}{\formatGenerator{pythia}}
+\newcommand{\pythiaSix}{\formatGenerator{pythia}}
+\newcommand{\alpgen}{\formatGenerator{alpgen}}
+\newcommand{\athena}{\formatGenerator{athena}}
+\newcommand{\mcnlo}{\formatGenerator{mc@nlo}}
+\newcommand{\sherpa}{\formatGenerator{sherpa}}
+\newcommand{\acermc}{\formatGenerator{acermc}}
+\newcommand{\protos}{\formatGenerator{protos}}
+\newcommand{\geantFour}{\formatGenerator{geant4}}
+\newcommand{\jimmy}{\formatGenerator{jimmy}}
+\newcommand{\hathor}{\formatGenerator{hathor}}
+\newcommand{\atlfastTwo}{\formatGenerator{atlfast2}}
+\newcommand{\wikiPage}[1]{\texttt{#1} wiki page}
+
+\newcommand{\prospino}{{\tt PROSPINO}}
+
+%%%%%%%% Background naming
+\newcommand{\GenuineSS}{Genuine SM SS} 
+\newcommand{\ChargeFlip}{Charge Flip}  
+\newcommand{\fake}{non-prompt}
+\newcommand{\Fake}{Non-prompt}
+% samples
+\newcommand{\ttH}{\ensuremath{t\bar{t}H}}
+\newcommand{\wjets}{\ensuremath{W+\mathrm{jets}}}
+\newcommand{\zjets}{\ensuremath{Z+\mathrm{jets}}}
+
+% matrix method
+\newcommand{\effFake}{\ensuremath{\epsilon_{\mathrm{fake}}}}
+\newcommand{\effReal}{\ensuremath{\epsilon_{\mathrm{real}}}}
+
+% Analysis variables
+\newcommand{\qg}{\ensuremath{qg}}
+\newcommand{\Et}{\ensuremath{E_{\text{T}}}}
+\newcommand{\mlj}{\ensuremath{m_{\ell{}j}}}
+\newcommand{\mljj}{\ensuremath{m_{\ell{}jj}}}
+\newcommand{\MT}{\ensuremath{m_{\rm T}}}
+\newcommand{\mt}{\MT}
+% Trying to make maxMT look good - Steve
+%\newcommand{\maxMT}{\ensuremath{ \rm{max}[ M_{\text{T}} ( l_{0}, E_{\text{T}}^{\text{miss}}), M_{\text{T}} ( l_{1}, E_{\text{T}}^{\text{miss}})] }} 
+%\newcommand{\maxMT}{\ensuremath{ {\rm max}[ M_{\text{T}} ( \ell_{i}, E_{\text{T}}^{\text{miss}})] }} 
+\newcommand{\maxMT}{\ensuremath{ {\rm max}[\mt (\ell_i, \met)] }} 
+% max(  M_{\text{T}( l_{0}, E_{T}^{miss} ), M_{\text{T}( l_{1}, E_{T}^{miss} )  ) 
+\newcommand{\MTW}{\ensuremath{m_{\rm T}^{W}}}
+\newcommand{\mtw}{\MTW}
+\newcommand{\MTWW}{\ensuremath{m_{\rm T}^{WW} }}
+\newcommand{\mtww}{\MTWW}
+\newcommand{\mtTwoJ}{\ensuremath{m_{\text{T}2}^{\text{J}}}}
+\newcommand{\ptlead}{\ensuremath{p_{\text{T}}(l_{0})}}
+\newcommand{\ptsubl}{\ensuremath{p_{\text{T}}(l_{1})}}
+\newcommand{\ptSub}[1]{\ensuremath{p_{\text{T} #1}}}
+\newcommand{\ptSup}[1]{\ensuremath{p_{\text{T}}^{#1}}}
+\newcommand{\ptEl}{\ensuremath{p_{\text{T}}^{e}}}
+\newcommand{\ptMu}{\ensuremath{p_{\text{T}}^{\mu{}}}}
+% Duplicates!!
+%\newcommand{\met}{\ensuremath{\cancel{E}_{\text{T}}}} % already defined atlasphysics.sty
+%\newcommand{\mt}{\ensuremath{M_{\text{T}}}}
+%\newcommand{\HT}{\ensuremath{H_{\text{T}}}}
+%\newcommand{\mtw}{\ensuremath{M_{\text{T,W}}}}
+%\newcommand{\ttbar}{\ensuremath{t\bar{t}}} % already defined atlasphysics.sty
+\newcommand{\metrel}{\ensuremath{E_{\mathrm{T,rel}}^{\mathrm{miss}}}}
+\newcommand{\mll}{\ensuremath{m_{\ell{}\ell{}}}}
+\newcommand{\ptll}{\ensuremath{p_{\text{T},\ell{}\ell{}}}}
+\newcommand{\dEtall}{\ensuremath{\Delta\eta_{\ell{}\ell{}}}}
+\newcommand{\pp}{\ensuremath{pp}}
+\newcommand{\ppbar}{\ensuremath{p\bar{p}}}
+\newcommand{\deltaR}[2]{\ensuremath{\Delta{}R\left(#1, #2\right)}}
+\newcommand{\pTmiss}{\ensuremath{\mathbf{p}_\mathrm{T}^\mathrm{miss}}}
+%\newcommand{\etmiss}{\ensuremath{E_{\mathrm{T}}^{\mathrm{miss}}}}
+\newcommand{\etmiss}{\met}
+\newcommand{\etmissRel}{\ensuremath{E_\mathrm{T}^\mathrm{miss,rel}}}
+\newcommand\abs[1]{\left|#1\right|}
+
+%------------
+% other various commands
+%------------
+%
+% redefine marginpar (with tighter spacing)
+\let\oldmarginpar\marginpar
+\renewcommand\marginpar[1]{
+  \-\oldmarginpar[\raggedleft\footnotesize #1]{\raggedright\footnotesize #1}
+}
+% two types of margin notes
+%\newcommand{\todo}[1]{\marginpar{{\scriptsize #1 }}}
+\newcommand{\comEd}[1]{{\color{magenta}\textsf{\small [#1]}}}
+\newcommand{\todo}[1]{}
+\ifoldlatex
+ \newcommand{\ebNote}[1]{\marginpar{ {\scriptsize #1 }}}
+\else
+ \newcommand{\ebNote}[1]{\marginpar{{\color{red} {\scriptsize #1 }}}}
+\fi
+
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+
+%------------
+% For Tables
+%------------
+%\newcolumntype{L}{>{$}l<{$}}
+%\newcolumntype{C}{>{$}c<{$}}
+%\newcolumntype{R}{>{$}r<{$}}

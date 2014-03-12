@@ -1,0 +1,75 @@
+
+################################################
+# This README represents the documentation for #
+# the plotting scripts used for the 2L limits  #
+################################################
+
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
+//              HOW TO RUN                //
+//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
+
+1.) You will need to generate the workspaces
+    by running HistFitter on your input trees.
+    These scripts are meant to be used as a final
+    step to getting the pretty plots used for
+    the paper/conf. In other words, you need all 
+    of the output from HistFitter prior to using
+    these plotting scripts.
+
+2.) First script needed is makeLimitHists.C
+    This script will take the workspaces,
+    dump the results into a text file that
+    can be interpreted by root.  Then this
+    text file is converted into histograms
+    storing the expected and observed limits.
+    These are then all copied into a directory
+    under "limitResults" which will be created
+    the first time you run this.  In there you 
+    will find the initial files, as well as a
+    *_histograms.root file which will contain the
+    output.  You run with a few options: 
+	root -l -b 'makeLimitHists.C("SR","Channel","Grid","Sys","LHRH",nFiles)'
+	SR -- Signal region. Use region names that you used to run HistFitter
+	Channel -- di-lepton channel: all, ee, mm, em
+	Sys -- systematic option for signal grid. So far we have NoSys, up, down.
+	LHRH -- specified if running slepton RH and LH options
+	nFiles -- this is needed if you split your jobs into many files.
+	          It will basically take care of hadding everything.
+
+3.) Plotting script: PlotLimits.C will make the 
+    nice plots given the input from the previous 
+    step. There are many options that need to be 
+    set for this and examples can be seen in
+	newPlots.sh
+    for how to run.  The options are pretty self
+    explanatory, and if you mess up, there are 
+    error messages to bring your options back 
+    into line.  You can see the available 
+    options by looking at the 'checkOptions(...)'
+    method in PlotLimits.C
+
+General Notes: 
+
+The code isn't perfect and could use some
+work.  I had originally thought I would need
+three methods to make plots showing the best grid
+in the case of PWC, combined limit plot taking the
+best result from various SR, and then the individual
+SR.  The 'best grid' method isn't needed anymore
+since there is an option to overlay this with the
+actual limit, which is much more useful.  
+
+Happy Plot-Making
+
+ 
+           .-.
+          (, )O()
+         ( )O.( ')o.
+         |XXXXXXXX|O
+       __|//\\//\\|o
+      /.-|\\//\\//|
+     ||  |//\\//\\|
+      \'-|\\//\\//|
+       `"|//\\//\\|
+         |XXXXXXXX|
+         `""`""`""`

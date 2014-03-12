@@ -1,0 +1,229 @@
+
+//////////////////////////////////////////////////////////
+// This script is borrowed from the makelistfiles.C and //
+// has been modified to cut out a step.  This will take //
+// the output from the fits and will write the result   //
+// to some list which is text file, but can be read in  //
+// using a header file that is also written.  Since we  //
+// are really after the final CLs histograms, combine   //
+// these two steps.  The user specifies the "base"      //
+// which acts as the naming for the output.             //
+//////////////////////////////////////////////////////////
+
+
+#include "TString.h"
+
+//------------------------------------------------------------//
+// Main -- Write the hists to file
+//------------------------------------------------------------//
+void makeLimitHists(char* SR, char* channel, char* grid, char* sys, char* LR="", int nFiles=0)
+{
+
+  gSystem->Load("libSusyFitter.so");
+
+  // Adding a hack -- Breaking up files for submission
+  // means I need a way to recombine things at the end.
+  // Here I will hadd the necessary files if nFiles != 0
+  if( nFiles != 0 ) addFiles(SR,channel,grid,sys,LR,nFiles);
+
+  //const char* interpretation = "mC1:mN1";
+  const char* interpretation = "mN1:mC1";
+
+  TString base = TString(Form("%s_%s_%s%s_%s",SR,channel,grid,LR,sys));
+  makeLimitHypoTestResults(base, grid, interpretation);
+  makeSemiFinalHists(base, interpretation);
+
+}
+
+//------------------------------------------------------------//
+// Add up files
+//------------------------------------------------------------//
+void addFiles(char* SR, char* channel, char* grid, char* sys, char* LR, int nFiles)
+{
+
+  // It is assumed that the file names build from the base as in:
+  // base0 base1 base2 ... basenFiles
+  TString append  = "_Output_hypotest.root";
+  TString base = TString(Form("%s_%s_%s%s_%s",SR,channel,grid,LR,sys));
+  
+  TString command = "hadd -f ../results/" + base + append;
+  for(int i=0; i<nFiles; ++i)
+    command += " ../results/" + TString(Form("%s_%s_%s%i%s_%s",SR,channel,grid,i,LR,sys)) + append;
+  
+  cout<<"Command: "<<command<<endl;
+  system(command.Data());
+
+
+}
+
+//------------------------------------------------------------//
+// Generate the results
+//------------------------------------------------------------//
+void makeLimitHypoTestResults(TString base, char* grid, char* interpretation)
+{
+
+  // input root file with HypoTestInverterResults, 
+  // as obtained from running: 
+  //const char* base = "SR4a_pass0_Output_hypotest";
+  const char* inputfile  = Form("../results/%s_Output_hypotest.root",base.Data());
+
+  // search for objects labelled  
+  //const char* format     = Form("hypo_%s8TeV_%f_%f",grid);
+  
+  if(grid == "SSWH")     const char* format = "hypo_SSWH8TeV_%f_%f";
+  if(grid == "SMCwslep") const char* format = "hypo_SMCwslep8TeV_%f_%f";
+  if(grid == "DLiSlep")  const char* format = "hypo_DLiSlep_%f_%f";
+  if(grid == "DGemt100") const char* format = "hypo_DGemt100_%f_%f";
+  if(grid == "DGemt140") const char* format = "hypo_DGemt140_%f_%f";
+  if(grid == "DGemt250") const char* format = "hypo_DGemt250_%f_%f";
+
+  cout<<endl;
+  cout<<endl;
+  cout<<"Grid: "<<format<<endl;
+  cout<<endl;
+  cout<<endl;
+  // cut string on m0 and m12 value, eg "m0>1200"
+  const char* cutStr = "1"; // accept everything
+
+
+  //TString outputfile = CollectAndWriteHypoTestResults( inputfile, format, interpretation, cutStr ) ;
+  TString outputfile = CollectAndWriteHypoTestResults( inputfile, format, "mC1:mN1", cutStr ) ;
+
+}
+
+void oops(){
+	std::cout << "Cannot make smoothed significance histogram. Exit." << std::endl;
+}
+
+//------------------------------------------------------------//
+// Save the results from previous method
+//------------------------------------------------------------//
+void makeSemiFinalHists(TString base, char* interpretation)
+{  
+
+  cout<<endl;
+  cout<<endl;
+  cout<<endl;
+  cout<<"Interpretation: "<<interpretation<<endl;
+  cout<<endl;
+  cout<<endl;
+  cout<<endl;
+  // Specify the save directory and make sure it exists
+  TString append = "_Output_hypotest";
+  TString outdir = "limitResults/" + base + "/";
+  system(Form("mkdir -p %s",outdir.Data()));
+
+  // Open up this summary file so we can read in all of the
+  // necessary information
+  gROOT->ProcessLine(".L summary_harvest_tree_description.h");
+
+  TString inputFile = TString(Form("%s__1_harvest_list",(base+append).Data()));
+
+  // Get the harvested tree
+  TTree* tree = harvesttree( inputFile!=0 ? inputFile : 0 );
+  if( tree == 0 ){
+    cout<<"Cannot open the list file.  Leaving"<<endl;
+    return;
+  }
+
+  // Create file for histograms to live in
+  TFile* output = new TFile(outdir + base + "_histograms.root","recreate");
+  output->cd();
+
+      // Observed CLs
+    TH2D* hist = DrawUtil::triwsmooth( tree, Form("CLs:%s",interpretation), "hCLs" , "Observed CLs Median", "p1>0 && p1<=1" );
+
+    if (hist!=0) 
+    {
+       hist->Write();
+       delete hist; hist=0;
+    } 
+    else oops(); 
+
+    // Observed CLs - significance
+    TH2D* hist = DrawUtil::triwsmooth( tree, Form("StatTools::GetSigma( CLs ):%s",interpretation), "sigp1clsf" , "One-sided significalce of observed CLs", "p1>0 && p1<=1" );
+    //TH2D* hist = DrawUtil::triwsmooth( tree, "StatTools::GetSigma( CLs ):mN1:mC1", "sigp1clsf" , "One-sided significalce of observed CLs", "" );
+
+    if (hist!=0) 
+    {
+       hist->Write();
+       delete hist; hist=0;
+    } 
+    else oops(); 
+
+    // Expected CLs
+    TH2D* hist = DrawUtil::triwsmooth( tree, Form("CLsexp:%s",interpretation), "hCLsexp" , "Expected CLs Median", "p1>0 && p1<=1" );
+    //TH2D* hist = DrawUtil::triwsmooth( tree, "CLsexp:mN1:mC1", "hCLsexp" , "Expected CLs Median", "" );
+
+    if (hist!=0) 
+    {
+       hist->Write();
+       delete hist; hist=0;
+    } 
+    else oops(); 
+
+    // Expected CLs - significance
+    TH2D* hist = DrawUtil::triwsmooth( tree, Form("StatTools::GetSigma( CLsexp ):%s",interpretation), "sigp1expclsf" , "One-sided significalce of expected CLs", "p1>0 && p1<=1" );
+    //TH2D* hist = DrawUtil::triwsmooth( tree, "StatTools::GetSigma( CLsexp ):mN1:mC1", "sigp1expclsf" , "One-sided significalce of expected CLs", "" );
+
+    if (hist!=0) 
+    {
+       hist->Write();
+       delete hist; hist=0;
+    } 
+    else oops(); 
+
+    // Expected CLs +1 sigma
+    TH2D* hist = DrawUtil::triwsmooth( tree, Form("clsu1s:%s",interpretation), "hCLsu1s" , "Expected CLs +1#sigma", "clsu1s>0" );
+    //TH2D* hist = DrawUtil::triwsmooth( tree, "clsu1s:mN1:mC1", "hCLsu1s" , "Expected CLs +1#sigma", "" );
+
+    if (hist!=0) 
+    {
+       hist->Write();
+       delete hist; hist=0;
+    } 
+    else oops(); 
+
+    // Expected CLs +1 sigma significance
+    TH2D* sigclsu1s = DrawUtil::triwsmooth(tree, Form("StatTools::GetSigma( clsu1s ):%s",interpretation), "sigclsu1s" , "One-sided significalce of expected CLs (+1 sigma)", "clsu1s>0" );
+    //TH2D* sigclsu1s = DrawUtil::triwsmooth( tree, "StatTools::GetSigma( clsu1s ):mN1:mC1", "sigclsu1s" , "One-sided significalce of expected CLs (+1 sigma)", "" );
+
+    if (sigclsu1s!=0) 
+    {
+        sigclsu1s->Write();
+        delete sigclsu1s; sigclsu1s=0;
+    } 
+    else oops(); 
+
+    // Expected CLs -1 sigma
+    TH2D* hist = DrawUtil::triwsmooth( tree, Form("clsd1s:%s",interpretation), "hCLsd1s" , "Expected CLs -1#sigma", "clsd1s>0" );
+    //TH2D* hist = DrawUtil::triwsmooth( tree, "clsd1s:mN1:mC1", "hCLsd1s" , "Expected CLs -1#sigma", "" );
+ 
+   if (hist!=0) 
+    {
+       hist->Write();
+       delete hist; hist=0;
+    } 
+    else oops(); 
+ 
+    // Expected CLs -1 sigma significance
+    TH2D* sigclsd1s = DrawUtil::triwsmooth( tree, Form("StatTools::GetSigma( clsd1s ):%s",interpretation), "sigclsd1s" , "One-sided significalce of expected CLs (-1 sigma)", "clsd1s>0" );
+    //TH2D* sigclsd1s = DrawUtil::triwsmooth( tree, "StatTools::GetSigma( clsd1s ):mN1:mC1", "sigclsd1s" , "One-sided significalce of expected CLs (-1 sigma)", "" );
+
+    if (sigclsd1s!=0) 
+    {
+        sigclsd1s->Write();
+        delete sigclsd1s; sigclsd1s=0;
+    } 
+    else oops(); 
+
+    // Save and quit
+    output->Close();
+  
+    
+    // clean up the working directory
+    system(Form("mv summary* %s",outdir.Data()));
+    system(Form("mv %s* %s",base.Data(),outdir.Data()));
+
+}
+

@@ -1,0 +1,40 @@
+8
+
+dir
+144039
+svn+ssh://svn.cern.ch/reps/atlasphys/Physics/SUSY/Analyses/HistFitter/tags/HistFitter-00-00-37/config
+svn+ssh://svn.cern.ch/reps/atlasphys
+
+
+
+2013-01-03T14:05:09.858075Z
+54716
+gbesjes
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+883ba7d9-fdd0-4202-9341-49aa55999ad8
+
+HistFactorySchema.dtd
+file
+
+
+
+
+2014-02-17T09:53:48.000000Z
+b5c688bf6fcc931547955b7b6c673ae1
+2012-10-19T15:07:01.018426Z
+41174
+mbaak
+

@@ -1,0 +1,58 @@
+8
+
+dir
+144039
+svn+ssh://svn.cern.ch/reps/atlasphys/Physics/SUSY/Analyses/HistFitter/tags/HistFitter-00-00-37/macros/Examples
+svn+ssh://svn.cern.ch/reps/atlasphys
+
+
+
+2013-11-21T16:37:36.069690Z
+127108
+gbesjes
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+883ba7d9-fdd0-4202-9341-49aa55999ad8
+
+pulls
+dir
+
+fittest
+dir
+
+contourplot
+dir
+
+pythonFreeConfig
+dir
+
+upperlimit
+dir
+
+p-values
+dir
+
+README
+file
+
+
+
+
+2014-02-17T09:53:46.000000Z
+844d370e1c227eae1eb00a2dfa2e02f7
+2012-06-12T08:22:55.868313Z
+12816
+mbaak
+

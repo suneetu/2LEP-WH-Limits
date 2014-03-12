@@ -1,0 +1,72 @@
+8
+
+dir
+144039
+svn+ssh://svn.cern.ch/reps/atlasphys/Physics/SUSY/Analyses/HistFitter/tags/HistFitter-00-00-37/macros
+svn+ssh://svn.cern.ch/reps/atlasphys
+
+
+
+2013-11-21T16:37:36.069690Z
+127108
+gbesjes
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+883ba7d9-fdd0-4202-9341-49aa55999ad8
+
+AtlasStyle.C
+file
+
+
+
+
+2014-02-17T09:53:46.000000Z
+008d62fe71536c879ab2ba484373c72d
+2012-05-08T21:55:42.028903Z
+12480
+cote
+has-props
+
+contourplot
+dir
+
+AtlasStyle.h
+file
+
+
+
+
+2014-02-17T09:53:46.000000Z
+8c5ccfcf5f9859c95192dce59c250acf
+2012-05-08T21:55:42.028903Z
+12480
+cote
+has-props
+
+README
+file
+
+
+
+
+2014-02-17T09:53:46.000000Z
+6b47981b118fb84d1e1533da6815ecde
+2012-06-12T08:36:06.054338Z
+12819
+mbaak
+
+Examples
+dir
+

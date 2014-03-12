@@ -1,0 +1,17 @@
+lllnu_WZ_MassiveCB.179974 
+lnununu_WZ_MassiveCB.179975
+ZWtoeeqq_MassiveCB.183585 
+ZWtomumuqq_MassiveCB.183587
+ZWtotautauqq_MassiveCB.183589
+ZWtonunuqq_MassiveCB.183591
+WZtoenuqq_MassiveCB.183735
+WZtomunuqq_MassiveCB.183737
+WZtotaunuqq_MassiveCB.183739
+ZWWStar.167007
+llnunu_ZZ_MassiveCB.177999
+ZZtoeeqq_MassiveCB.183586 
+ZZtomumuqq_MassiveCB.183588 
+ZZtotautauqq_MassiveCB.183590 
+llll_ZZ.126894 
+ZZ4lep.179396 
+ZZZStar.167008

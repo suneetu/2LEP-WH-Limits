@@ -1,0 +1,38 @@
+LATEX    = latex
+BIBTEX   = bibtex
+DVIPS    = dvips
+
+BASENAME = whss_tables
+
+default: pdflatex
+
+latex:
+	latex  ${BASENAME}
+	latex  ${BASENAME}
+	dvipdf -sPAPERSIZE=a4 -dPDFSETTINGS=/prepress ${BASENAME}
+
+pdflatex:
+	pdflatex --shell-escape ${BASENAME}
+	pdflatex   --shell-escape ${BASENAME}
+
+#
+# standard Latex targets
+#
+
+%.dvi:  %.tex
+	$(LATEX) $<
+
+%.bbl:  %.tex *.bib
+	$(LATEX) $*
+	$(BIBTEX) $*
+
+%.ps:   %.dvi
+	$(DVIPS) $< -o $@
+
+%.pdf:  %.tex
+	$(PDFLATEX) $<
+
+.PHONY: clean
+
+clean:
+	rm -f *.aux *.log *.bbl *.blg *.brf *.cb *.ind *.idx *.ilg \ *.inx *.dvi *.toc *.out *~ ~* */*~ */~* spellTmp

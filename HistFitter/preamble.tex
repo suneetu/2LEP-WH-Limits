@@ -1,0 +1,50 @@
+\graphicspath{{figures/}}
+\usepackage{rotating}
+\usepackage{atlasphysics}
+\usepackage{subfigure, graphicx}
+% \usepackage{showframe}
+\usepackage{mathrsfs}
+\usepackage{lineno}
+\usepackage{authblk}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[section]{placeins}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{epstopdf}
+\usepackage{longtable}
+%% To comment to compile on gpatlas
+ \hypersetup{
+     colorlinks,
+     citecolor=red,
+     filecolor=blue,
+     linkcolor=blue,
+    urlcolor=blue
+ }
+\usepackage{makeidx}
+\usepackage{float}
+% \makeindex
+% \index{key}
+% \printindex
+% Some packages are not available (or can cause conflicts) with old latex distributions.
+% Uncomment the line below to disable them <<--
+% (davide.gerbaudo@gmail.com, Sept 20120)
+\newif\ifoldlatex
+\oldlatextrue
+% \oldlatexfalse
+\ifoldlatex
+ \newcommand{\sfrac}[2]{\ensuremath{{}^{#1}/_{#2}}}
+\else
+\usepackage{xfrac} % provides \sfrac
+\usepackage
+    [colorlinks=true,
+      urlcolor=blue,
+      anchorcolor=blue,
+      linkcolor=blue,
+      citecolor=blue,
+      pdfmark,
+      pdfkeywords={LHC,ATLAS,SUSY,simplifiedWH},
+      pdftitle={2013 ATLAS same-sign WH}]{hyperref}
+\fi % end not oldlatex
+
+
