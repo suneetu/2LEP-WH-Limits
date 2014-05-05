@@ -71,7 +71,8 @@ print "Uncert        : ",_sigUncert
 print "---------------------------------------------\n"
 
 # Input files w/ full path
-indir      = "/gdata/atlas/suneetu/Documents/WHLimits2014/Inputs/20140310/Processed/"
+indir      = "/gdata/atlas/suneetu/Documents/WHLimits2014/Inputs/20140428/Processed/"
+#indir      = "/scratch/suneetu/hft_cache/"
 bkgFile    = indir + "SSBG8TeV.root"
 signalFile = indir + "SSWH8TeV.root"
 
@@ -89,9 +90,9 @@ if _channel in "mm": _ch = userDefs.mm
 if _channel in "em": _ch = userDefs.em
 
 # Initialize Runtime Options
-userOpts = RuntimeOptions(False,                    # doToys
-                          "",                       # specify grid for toys
-                          1000,                     # specify number of toys
+userOpts = RuntimeOptions(False,                     # doToys
+                          "",                   # specify grid for toys
+                          10000,                    # specify number of toys
                           True,                     # doExclusion
 						  False,                    # doDiscovery
                           False,                    # doValidation
@@ -111,13 +112,15 @@ userOpts = RuntimeOptions(False,                    # doToys
                           )
 
 # Define Data and BG samples
-dataSample  = Sample("Data_CENTRAL", ROOT.kBlack   )
-zjetsSample = Sample("Zjets"       , ROOT.kGreen+2 )
-fakeSample  = Sample("Fakes"       , ROOT.kOrange-4)
-higgsSample = Sample("Higgs"       , ROOT.kYellow  )
-zvSample    = Sample("ZV"          , ROOT.kGreen   )
-wwSample    = Sample("WW"          , ROOT.kAzure-4 )
-topSample   = Sample("Top"         , ROOT.kViolet  )
+dataSample     = Sample("Data_CENTRAL", ROOT.kBlack   )
+zjetsSample    = Sample("Zjets"       , ROOT.kGreen+2 )
+fakeSample     = Sample("fake"       , ROOT.kOrange-4)
+higgsSample    = Sample("Higgs"       , ROOT.kYellow  )
+wwSample       = Sample("WW"          , ROOT.kAzure-4 )
+wzSample       = Sample("WZ"          , ROOT.kGreen   )
+zzSample       = Sample("ZZ"          , ROOT.kGreen-4 )
+tribosonSample = Sample("triboson"    , ROOT.kAzure   )
+ttbarVSample      = Sample("ttbarV"         , ROOT.kViolet  )
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#
 #                                 USER SHOULD NOT HAVE TO EDIT BELOW HERE                                    #
@@ -251,59 +254,79 @@ useStat = False # This is added as systematics below
 zjetsSample.setStatConfig(useStat)
 fakeSample.setStatConfig(useStat)
 higgsSample.setStatConfig(useStat) 
-zvSample.setStatConfig(useStat)
 wwSample.setStatConfig(useStat)   
-topSample.setStatConfig(useStat)
+wzSample.setStatConfig(useStat)  
+zzSample.setStatConfig(useStat)  
+tribosonSample.setStatConfig(useStat)  
+ttbarVSample.setStatConfig(useStat)
 
 if not useStat:
     zjetsSample.addSystematic(sysObj.AR_mcstat_Zjets)
-    fakeSample.addSystematic(sysObj.AR_mcstat_Fakes)
-    higgsSample.addSystematic(sysObj.AR_mcstat_Higgs) 
-    zvSample.addSystematic(sysObj.AR_mcstat_ZV)   
+    fakeSample.addSystematic(sysObj.AR_mcstat_fake)
+    higgsSample.addSystematic(sysObj.AR_mcstat_Higgs)  
     wwSample.addSystematic(sysObj.AR_mcstat_WW)   
-    topSample.addSystematic(sysObj.AR_mcstat_TOP)
+    wzSample.addSystematic(sysObj.AR_mcstat_WZ)   
+    zzSample.addSystematic(sysObj.AR_mcstat_ZZ)   
+    tribosonSample.addSystematic(sysObj.AR_mcstat_triboson)   
+    ttbarVSample.addSystematic(sysObj.AR_mcstat_ttbarV)
 else:
     tlx.statErrThreshold = 0.001
 
 # Rest should be implemented here
-fakeSample.addSystematic(sysObj.AR_ELFR)
-fakeSample.addSystematic(sysObj.AR_MUFR)
-fakeSample.addSystematic(sysObj.AR_ELRE)
-fakeSample.addSystematic(sysObj.AR_MURE)
+fakeSample.addSystematic(sysObj.AR_fake_eFr)
+fakeSample.addSystematic(sysObj.AR_fake_mFr)
+fakeSample.addSystematic(sysObj.AR_fake_eRe)
+fakeSample.addSystematic(sysObj.AR_fake_mRe)
 
-mc_systematics = [sysObj.AR_EESZ, sysObj.AR_EER, sysObj.AR_EESLOW, sysObj.AR_EESMAT, sysObj.AR_EESPS,
-                  sysObj.AR_JES, sysObj.AR_SCALEST, sysObj.AR_XS, sysObj.AR_BJET, sysObj.AR_BKGMETHOD]
+mc_systematics = [sysObj.AR_all_EESZ, sysObj.AR_all_EER, sysObj.AR_all_EESLOW, sysObj.AR_all_EESMAT, sysObj.AR_all_EESPS,
+                  sysObj.AR_all_SCALEST, sysObj.AR_all_MID, sysObj.AR_all_JES, sysObj.AR_all_MMS, sysObj.AR_all_BJET, 
+                  sysObj.AR_all_CJET, sysObj.AR_all_ETRIGREW, sysObj.AR_all_MTRIGREW, sysObj.AR_all_BKGMETHOD,
+                  sysObj.AR_all_ESF, sysObj.AR_all_BMISTAG, sysObj.AR_all_MEFF, sysObj.AR_all_JER, sysObj.AR_all_RESOST]
 
-# Longer list for copy/paste
-#mc_systematics = [sysObj.AR_EESZ, sysObj.AR_EER, sysObj.AR_EESLOW, sysObj.AR_EESMAT, sysObj.AR_EESPS,
-#                  sysObj.AR_ID, sysObj.AR_JES, sysObj.AR_MS, sysObj.AR_SCALEST, sysObj.AR_LUMI, sysObj.AR_BJET,
-#                  sysObj.AR_CJET, sysObj.AR_XS, sysObj.AR_BKGMETHOD]
+mcsamples = [zjetsSample, higgsSample, wwSample, wzSample, zzSample, tribosonSample, ttbarVSample]
 
-mcsamples = [higgsSample, wwSample, topSample]
-# Longer list for copy/paste
-#mcsamples = [zjetsSample, higgsSample, zvSample, wwSample, topSample]
-##### We've excluded zvSample and zjetsSample because of errors in the HFT's that cause HistFitter to fail
-##### when those are included. This is OK to first order because zjetsSample mostly does not contribute
-##### and zvSample has a large uncertainty applied "directly"
-
-
-# execute systematic selection
 for mc_sample_ in mcsamples:
     for systematic_ in mc_systematics:
         mc_sample_.addSystematic(systematic_)
 
+# GEN
+# GEN
+# GEN
+
+#zjetsSample.addSystematic(AR_zjets_GEN)
+#higgsSample.addSystematic(AR_Higgs_GEN)
+#wwSample.addSystematic(AR_ww_GEN)
+wzSample.addSystematic(sysObj.AR_wz_GEN)
+#zzSample.addSystematic(AR_zz_GEN)
+#tribosonSample.addSystematic(AR_triboson_GEN)
+#ttbarVSample.addSystematic(AR_ttbarV_GEN)
+
+# XS
+# XS
+# XS
+
+zjetsSample.addSystematic(sysObj.AR_zjets_XS)
+higgsSample.addSystematic(sysObj.AR_Higgs_XS)
+wwSample.addSystematic(sysObj.AR_ww_XS)
+#wzSample.addSystematic(sysObj.AR_wz_XS)
+zzSample.addSystematic(sysObj.AR_zz_XS)
+tribosonSample.addSystematic(sysObj.AR_triboson_XS)
+ttbarVSample.addSystematic(sysObj.AR_ttbarV_XS)
+
 # Set those that are MC-only so that luminosity uncertainty is passed on
 zjetsSample.setNormByTheory()
-higgsSample.setNormByTheory() 
-zvSample.setNormByTheory()   
-wwSample.setNormByTheory()   
-topSample.setNormByTheory()
+higgsSample.setNormByTheory()  
+wwSample.setNormByTheory()  
+wzSample.setNormByTheory()   
+zzSample.setNormByTheory()   
+tribosonSample.setNormByTheory()    
+ttbarVSample.setNormByTheory()
 
 # Set data
 dataSample.setData()
 
 # Set samples list
-tlx.addSamples([wwSample,topSample,zvSample,zjetsSample,higgsSample,dataSample,fakeSample])
+tlx.addSamples([wwSample,wzSample,zzSample,tribosonSample,ttbarVSample,zjetsSample,higgsSample,dataSample,fakeSample])
 
 ################################################################################################
 ## Setup the signal regions
@@ -333,11 +356,11 @@ if userOpts.doExclusion or userOpts.doValidation:
         for sr in srs:
             for chan in channels:
                 currentChannel = tlx.addChannel(type,[chan+sr],nbins,low,high)
-                # Ad-hoc Uncertinties
-                if 'SR1jet' in sr:
-                    currentChannel.getSample("ZV").addSystematic(sysObj.AR_SR1jetAdhoc_ZV)
-                elif 'SR23jets' in sr: 
-                    currentChannel.getSample("ZV").addSystematic(sysObj.AR_SR23jetsAdhoc_ZV)
+                ## Ad-hoc Uncertinties
+                #if 'SR1jet' in sr:
+                #    currentChannel.getSample("ZV").addSystematic(sysObj.AR_ZV_SR1jetAdhoc)
+                #elif 'SR23jets' in sr: 
+                #    currentChannel.getSample("ZV").addSystematic(sysObj.AR_ZV_SR23jetsAdhoc)
                 srList.append( currentChannel )
                 srList[counter].userOverflowBin =True
                 srList[counter].userUnderflowBin=True
@@ -371,11 +394,11 @@ if userOpts.doDiscovery:
     srChanName += userOpts.signalRegion
     discoChannel = tlx.addChannel("cuts",[srChanName],1,0.5,1.5)
     discoChannel.addDiscoverySamples(["SIG"],[1.],[0.],[100.],[ROOT.kRed])
-    # Ad-hoc Uncertinties
-    if 'SR1jet' in srChanName:
-        discoChannel.getSample("ZV").addSystematic(sysObj.AR_SR1jetAdhoc_ZV)
-    elif 'SR23jets' in srChanName: 
-        discoChannel.getSample("ZV").addSystematic(sysObj.AR_SR23jetsAdhoc_ZV)
+    ## Ad-hoc Uncertinties
+    #if 'SR1jet' in srChanName:
+    #    discoChannel.getSample("ZV").addSystematic(sysObj.AR_ZV_SR1jetAdhoc)
+    #elif 'SR23jets' in srChanName: 
+    #    discoChannel.getSample("ZV").addSystematic(sysObj.AR_ZV_SR23jetsAdhoc)
     # Add stat - shouldn't be done - double check
     #discoChannel.addSystematic(sysObj.AR_mcstat_SIG)
     tlx.setSignalChannels(discoChannel)
@@ -431,10 +454,11 @@ if userOpts.doExclusion:
 
             sigSample.setFileList([userOpts.sigFile])
             if sigUncert == "up":
-                sigSample.setWeights(("eventweight","syst_XSUP","1.0"))
+                #sigSample.setWeights(("eventweight","syst_XSUP","1.0"))
+                sigSample.setWeights(("eventweight","1.07","1.0"))
             elif sigUncert == "down":
-                sigSample.setWeights(("eventweight","syst_XSDOWN","1.0"))
-
+                #sigSample.setWeights(("eventweight","syst_XSDOWN","1.0"))
+                sigSample.setWeights(("eventweight","0.93","1.0"))
             #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             # Add systematics here
             #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

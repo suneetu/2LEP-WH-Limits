@@ -12,13 +12,29 @@ def selectionConfig(mgr):
     # EE                          !isOS &&    (!isOS || L2qFlipWeight!=1.0) && 
     mgr.cutsDict["eeSR1jet"]   = "((!isOS || L2qFlipWeight!=1.0) && isEE   && "+ OneJet         +" && "+ LeptonPtAsymm +" && "+ Zveto +" && L2METrel>55000. && mlj<90000. && Ht>200000.)" 
     mgr.cutsDict["eeSR23jets"] = "((!isOS || L2qFlipWeight!=1.0) && isEE   && "+ TwoORThreeJets +" && "+ LeptonPtAsymm +" && "+ Zveto +" && L2METrel>30000. && mljj<120000. && mtmax>100000.)"
-
+    
     # MM
     mgr.cutsDict["mmSR1jet"]   = "((!isOS || L2qFlipWeight!=1.0) && isMUMU && "+ OneJet         +" && "+ LeptonPtAsymm +" && "+ deltaEta +" && mlj<90000. && Ht>200000. && mtmax>100000.)" 
     mgr.cutsDict["mmSR23jets"] = "((!isOS || L2qFlipWeight!=1.0) && isMUMU && "+ TwoORThreeJets +" && "+ LeptonPtSymm  +" && "+ deltaEta +" && mljj<120000. && Ht>220000.)"
+    
+    # EM WITHOUT MTWW
+    #mgr.cutsDict["emSR1jet"]   = "((!isOS || L2qFlipWeight!=1.0) && isEMU  && "+ OneJet         +" && "+ LeptonPtSymm +" && " + deltaEta +" && mlj<90000. && mtmax>110000. && Ht>200000.)" 
+    #mgr.cutsDict["emSR23jets"] = "((!isOS || L2qFlipWeight!=1.0) && isEMU  && "+ TwoORThreeJets +" && "+ LeptonPtSymm +" && "+ deltaEta +" && mljj<120000. && mtmax>110000. && Ht>200000.)"
+    
+    mgr.cutsDict["emSR1jet"]   = "((!isOS || L2qFlipWeight!=1.0) && isEMU  && "+ OneJet         +" && "+ LeptonPtSymm +" && "+ deltaEta +" && mlj<90000. && mtmax>110000. && Ht>200000.)" 
+    mgr.cutsDict["emSR23jets"] = "((!isOS || L2qFlipWeight!=1.0) && isEMU  && "+ TwoORThreeJets +" && "+ LeptonPtSymm +" && "+ deltaEta +" && mljj<120000. && mtmax>110000. && Ht>200000.)"
 
-    # EM WITH MTWW CUT
-    mgr.cutsDict["emSR1jet"]   = "((!isOS || L2qFlipWeight!=1.0) && isEMU  && "+ OneJet         +" && "+ LeptonPtSymm +" && "+ deltaEta +" && mlj<90000. && mtmax>110000. && mtllmet>120000. )" 
-    mgr.cutsDict["emSR23jets"] = "((!isOS || L2qFlipWeight!=1.0) && isEMU  && "+ TwoORThreeJets +" && "+ LeptonPtSymm +" && "+ deltaEta +" && mljj<120000. && mtllmet>110000. )"
+    #### EE 
+    ###mgr.cutsDict["eeSR1jet"]   = "((!isOS || L2qFlipWeight!=1.0) && isEE   && "+ OneJet         +" && "+ LeptonPtAsymm +" && "+ Zveto +"&& mlj<90000. && Ht>220000. && mtmax>110000.)" 
+    ###mgr.cutsDict["eeSR23jets"] = "((!isOS || L2qFlipWeight!=1.0) && isEE   && "+ TwoORThreeJets +" && "+ LeptonPtAsymm +" && "+ Zveto +" && mljj<120000. && Ht>220000. && mtmax>110000.)"
+    ###
+    #### MM
+    ###mgr.cutsDict["mmSR1jet"]   = "((!isOS || L2qFlipWeight!=1.0) && isMUMU && "+ OneJet         +" && "+ LeptonPtAsymm +" && "+ deltaEta +" && mlj<90000. && Ht>220000. && mtmax>110000.)" 
+    ###mgr.cutsDict["mmSR23jets"] = "((!isOS || L2qFlipWeight!=1.0) && isMUMU && "+ TwoORThreeJets +" && "+ LeptonPtSymm  +" && "+ deltaEta +" && mljj<120000. && Ht>220000. && mtmax>110000.)"
+    ###
+    #### EM
+    ###mgr.cutsDict["emSR1jet"]   = "((!isOS || L2qFlipWeight!=1.0) && isEMU  && "+ OneJet         +" && "+ LeptonPtSymm +" && "+ deltaEta +" && mlj<90000. && mtmax>110000. && Ht>220000.)" 
+    ###mgr.cutsDict["emSR23jets"] = "((!isOS || L2qFlipWeight!=1.0) && isEMU  && "+ TwoORThreeJets +" && "+ LeptonPtSymm +" && "+ deltaEta +" && mljj<120000. && mtmax>110000. && Ht>220000.)"
+
 
     return mgr
